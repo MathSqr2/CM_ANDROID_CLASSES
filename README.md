@@ -1,0 +1,1 @@
+Exercices for the Mobile Computing Android classes.
