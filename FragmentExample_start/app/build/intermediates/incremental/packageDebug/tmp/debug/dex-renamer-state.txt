@@ -1,4 +1,0 @@
-#Sat May 02 16:09:25 WEST 2020
-base.0=/home/afonso/Desktop/CM_ANDROID_CLASSES/FragmentExample_start/app/build/intermediates/dex/debug/out/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex
