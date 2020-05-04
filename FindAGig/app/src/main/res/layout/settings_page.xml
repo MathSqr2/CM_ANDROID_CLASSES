@@ -23,9 +23,9 @@
                 android:text="SEARCH!"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textStyle="bold"
+                android:textStyle="normal"
                 android:textColor="#FFFFFF"
-                android:textSize="75sp">
+                android:textSize="60sp">
             </TextView>
         </RelativeLayout>
     </LinearLayout>
