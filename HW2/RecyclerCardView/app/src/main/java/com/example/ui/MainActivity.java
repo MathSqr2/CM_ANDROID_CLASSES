@@ -10,6 +10,7 @@ import com.example.recyclercardview.R;
 import com.example.ui.fragments.CitiesList;
 
 public class MainActivity extends AppCompatActivity {
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +18,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         CitiesList simpleFragment = CitiesList.newInstance();
-        FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
         fragmentTransaction.add(R.id.cityListFragment, simpleFragment);
         fragmentTransaction.commit();
+
+
     }
+
+
 
 }

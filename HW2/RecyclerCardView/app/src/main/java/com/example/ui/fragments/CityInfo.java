@@ -49,6 +49,8 @@ public class CityInfo extends Fragment {
         return new CityInfo();
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_city_info, container, false);
@@ -90,9 +92,9 @@ public class CityInfo extends Fragment {
             mDescTv.setText("Error");
         }
 
-
         return rootView;
     }
+
 
     private void callWeatherForecastForACityStep1(final String city) {
 

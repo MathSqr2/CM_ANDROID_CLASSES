@@ -11,18 +11,29 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.datamodel.City;
+import com.example.datamodel.Weather;
+import com.example.datamodel.WeatherType;
+import com.example.network.CityResultsObserver;
+import com.example.network.ForecastForACityResultsObserver;
+import com.example.network.IpmaWeatherClient;
+import com.example.network.WeatherTypesResultsObserver;
 import com.example.recyclercardview.Model;
 import com.example.recyclercardview.MyAdapter;
 import com.example.recyclercardview.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
 public class CitiesList extends Fragment {
+    IpmaWeatherClient client = new IpmaWeatherClient();
+
     String[] cities = new String[]{"Aveiro", "Braga", "Lisboa", "Porto", "Faro", "Vila Real", "Viana do Castelo"};
     RecyclerView mRecyclerView;
     MyAdapter myAdapter;
-
+    GridLayoutManager grid = new GridLayoutManager(getActivity(), 1);
     public CitiesList() {
         // Required empty public constructor
     }
@@ -31,6 +42,27 @@ public class CitiesList extends Fragment {
         return new CitiesList();
     }
 
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        int orientation = this.getResources().getConfiguration().orientation;
+
+        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            System.out.println("------------------------------- changed to portrait");
+
+            grid = new GridLayoutManager(getActivity(), R.integer.main_column_count);
+            myAdapter = new MyAdapter(this.getContext(), getMyList());
+            mRecyclerView.setAdapter(myAdapter);
+        }
+        else if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            System.out.println("------------------------------- changed to landscape");
+
+            grid = new GridLayoutManager(getActivity(), R.integer.main_column_count_landscape);
+            myAdapter = new MyAdapter(this.getContext(), getMyList());
+            mRecyclerView.setAdapter(myAdapter);
+        }
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -72,4 +104,5 @@ public class CitiesList extends Fragment {
         }
         return models;
     }
+
 }
