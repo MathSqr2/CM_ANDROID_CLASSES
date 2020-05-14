@@ -17,9 +17,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class LogInPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
+    private static final String TAG = "LogIn";
 
     EditText login_mail;
     EditText login_pass;
@@ -29,6 +34,24 @@ public class LogInPage extends AppCompatActivity {
         setContentView(R.layout.activity_log_in_page);
 
         mAuth = FirebaseAuth.getInstance();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("gigs")
+            .get()
+            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if (!document.getBoolean("taken")) {
+                                GeoPoint local = (GeoPoint) document.getData().get("local");
+                                Log.d(TAG, document.getId() + " => " + document.getData().get("city") + ", " + document.getData().get("description") + ", lat " + local.getLatitude());
+                            }
+                        }
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                }
+            });
 
     }
 
